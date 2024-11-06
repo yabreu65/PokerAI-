@@ -1,0 +1,55 @@
+
+
+    body {
+      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      max-width: 600px;
+      margin-top: 50px;
+      padding: 30px;
+      border-radius: 15px;
+      background: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    h1 {
+      font-size: 1.8rem;
+      color: #333;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .btn-custom {
+      background-color: #007bff;
+      color: white;
+      margin-top: 10px;
+      width: 100%;
+    }
+    .btn-custom:hover {
+      background-color: #0056b3;
+    }
+    .preview {
+      width: 30%;
+      max-height: 300px;
+      border-radius: 8px;
+      object-fit: cover;
+      margin-top: 20px;
+    }
+    #video {
+      width: 50%;
+      max-height: 300px;
+      border-radius: 8px;
+      object-fit: cover;
+      margin-top: 20px;
+    }
+    #canvas {
+      display: none;
+    }
+    #predictionContainer {
+    
+      margin-top: 20px;
+    }
+    #predictionText {
+      font-size: 1.2rem;
+      color: #007bff;
+    }

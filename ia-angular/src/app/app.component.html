@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Predicción de Cartas de Póquer</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container text-center">
+    <h1>Predicción de Cartas de Póquer</h1>
+
+    <!-- Video para vista previa de la cámara -->
+    <video id="video" autoplay></video>
+
+    <!-- Canvas para capturar la imagen de la cámara -->
+    <canvas id="canvas"></canvas>
+
+    <!-- Botón para tomar la foto -->
+    <button class="btn btn-custom" (click)="captureImage()">Tomar Foto</button>
+
+    <!-- Botón para seleccionar una imagen del almacenamiento -->
+    <input type="file" class="form-control mb-3" (change)="onFileChange($event)" accept="image/*">
+
+    <!-- Previsualización de imagen capturada o seleccionada -->
+    <img id="imagePreview" class="preview" [src]="previewUrl" alt="Previsualización de la imagen" *ngIf="previewUrl">
+
+    <!-- Botón para subir la imagen -->
+    <button class="btn btn-custom" (click)="uploadImage()">Subir Imagen</button>
+
+    <!-- Contenedor para la predicción -->
+    <div id="predictionContainer" class="mt-4" *ngIf="prediction">
+      <h3>Predicción:</h3>
+      <p id="predictionText">{{ prediction }}</p>
+    </div>
+  </div>
+</body>
+</html>
