@@ -2,3 +2,9 @@
 */dataset
 */temp_dataset
 */test_data
+# Ignorar la carpeta del entorno virtual
+*/venv/
+
+# Ignorar modelos grandes
+*/ia-backend/training/model/*.keras
+
