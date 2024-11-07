@@ -6,8 +6,19 @@ destination_dir = "/opt/render/project/src/ia-backend/training/model"
 os.makedirs(destination_dir, exist_ok=True)  # Crea la carpeta si no existe
 
 def download_model_from_drive(file_id, destination):
+    # URL base de descarga
     url = f"https://drive.google.com/uc?export=download&id={file_id}"
-    response = requests.get(url, stream=True)
+    session = requests.Session()
+    
+    # Intenta obtener la confirmación para archivos grandes
+    response = session.get(url, stream=True)
+    for key, value in response.cookies.items():
+        if key.startswith("download_warning"):
+            url = f"https://drive.google.com/uc?export=download&confirm={value}&id={file_id}"
+            response = session.get(url, stream=True)
+            break
+
+    # Descarga el archivo
     if response.status_code == 200:
         with open(destination, "wb") as f:
             for chunk in response.iter_content(1024):
