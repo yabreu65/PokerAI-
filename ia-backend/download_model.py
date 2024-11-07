@@ -14,7 +14,14 @@ def download_model_from_drive(file_id, destination):
                 f.write(chunk)
         print(f"Modelo descargado en {destination}")
     else:
-        print("Error al descargar el modelo.")
+        print("Error al descargar el modelo. Código de estado:", response.status_code)
 
 # Llama a la función con el file_id y la ruta de destino del modelo
-download_model_from_drive("1hKzzE_KYzr6cV-3rmFHdTT3Zj2Lhesrm", os.path.join(destination_dir, "best_model_manual.keras"))
+model_path = os.path.join(destination_dir, "best_model_manual.keras")
+download_model_from_drive("1hKzzE_KYzr6cV-3rmFHdTT3Zj2Lhesrm", model_path)
+
+# Verifica si el archivo fue descargado
+if os.path.exists(model_path):
+    print("El archivo de modelo se descargó correctamente.")
+else:
+    print("Error: el archivo de modelo no se encontró en la ubicación esperada.")
