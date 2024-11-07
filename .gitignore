@@ -6,5 +6,8 @@
 */venv/
 
 # Ignorar modelos grandes
-*/ia-backend/training/model/*.keras
+ia-backend/training/model/*.keras
+ia-backend/training/model/
+
+
 
