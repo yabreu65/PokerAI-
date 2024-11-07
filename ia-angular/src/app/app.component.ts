@@ -84,7 +84,7 @@ export class AppComponent {
     const formData = new FormData();
     formData.append('file', this.selectedFile, this.selectedFile.name);
 
-    this.http.post<any>('http://192.168.1.27:5000/predict', formData).subscribe(
+    this.http.post<any>('http://localhost:5001/predict', formData).subscribe(
       (response: any) => {
         this.prediction = response.prediction;
         console.log("Predicción recibida:", response);
