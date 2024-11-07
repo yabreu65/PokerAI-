@@ -1,12 +1,15 @@
 #!/bin/bash
-# Ejecuta el script de descarga del modelo
+
+echo "Ejecutando download_model.py para descargar el modelo..."
 python download_model.py
 
-# Espera hasta que el archivo de modelo esté disponible
-while [ ! -f "/opt/render/project/src/ia-backend/training/model/best_model_manual.keras" ]; do
-  echo "Esperando que el archivo de modelo esté disponible..."
-  sleep 5
-done
+MODEL_PATH="/tmp/model/best_model_manual.keras"
+if [ -f "$MODEL_PATH" ]; then
+  echo "El archivo de modelo se descargó correctamente."
+else
+  echo "Error: el archivo de modelo no se encontró en $MODEL_PATH."
+  exit 1  # Salir si el archivo de modelo no está presente
+fi
 
-# Inicia la aplicación con Gunicorn
+echo "Iniciando la aplicación con Gunicorn..."
 gunicorn app:app --bind 0.0.0.0:$PORT
