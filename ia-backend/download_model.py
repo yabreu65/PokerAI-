@@ -6,19 +6,18 @@ destination_dir = "/opt/render/project/src/ia-backend/training/model"
 os.makedirs(destination_dir, exist_ok=True)  # Crea la carpeta si no existe
 
 def download_model_from_drive(file_id, destination):
-    # URL base de descarga
     url = f"https://drive.google.com/uc?export=download&id={file_id}"
     session = requests.Session()
-    
-    # Intenta obtener la confirmación para archivos grandes
+    print("Iniciando la descarga del modelo desde Google Drive...")
+
+    # Primera solicitud para obtener la confirmación (si es necesaria)
     response = session.get(url, stream=True)
     for key, value in response.cookies.items():
-        if key.startswith("download_warning"):
+        if key.startswith('download_warning'):
             url = f"https://drive.google.com/uc?export=download&confirm={value}&id={file_id}"
             response = session.get(url, stream=True)
-            break
 
-    # Descarga el archivo
+    # Descarga el archivo si la respuesta es exitosa
     if response.status_code == 200:
         with open(destination, "wb") as f:
             for chunk in response.iter_content(1024):
@@ -33,6 +32,6 @@ download_model_from_drive("1hKzzE_KYzr6cV-3rmFHdTT3Zj2Lhesrm", model_path)
 
 # Verifica si el archivo fue descargado
 if os.path.exists(model_path):
-    print("El archivo de modelo se descargó correctamente.")
+    print("El archivo de modelo se descargó correctamente y está listo para usarse.")
 else:
-    print("Error: el archivo de modelo no se encontró en la ubicación esperada.")
+    print("Error: el archivo de modelo no se encontró en la ubicación esperada después de la descarga.")
