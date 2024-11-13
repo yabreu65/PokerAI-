@@ -98,33 +98,36 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
   
     const videoElement = videoElementRef.nativeElement;
-    const tryFrontCamera = { video: { facingMode: "user" } };
-    const tryBackCamera = { video: { facingMode: "environment" } };
+    const constraints = { video: { facingMode: { exact: "environment" } } };
   
-    console.log("Iniciando cámara en el dispositivo...");
+    console.log("Intentando iniciar la cámara trasera...");
   
-    navigator.mediaDevices.getUserMedia(tryFrontCamera)
+    navigator.mediaDevices.getUserMedia(constraints)
       .then((stream) => {
         videoElement.srcObject = stream;
         this.showVideo = true;
         this.showCanvas = false;
-        console.log("Cámara frontal iniciada con éxito.");
+        console.log("Cámara trasera iniciada con éxito.");
       })
       .catch((error) => {
-        console.warn("Cámara frontal no disponible, intentando con cámara trasera:", error);
-        navigator.mediaDevices.getUserMedia(tryBackCamera)
+        console.warn("No se pudo acceder a la cámara trasera:", error);
+        console.log("Intentando iniciar la cámara frontal...");
+  
+        const frontConstraints = { video: { facingMode: "user" } };
+  
+        navigator.mediaDevices.getUserMedia(frontConstraints)
           .then((stream) => {
             videoElement.srcObject = stream;
             this.showVideo = true;
             this.showCanvas = false;
-            console.log("Cámara trasera iniciada con éxito.");
+            console.log("Cámara frontal iniciada con éxito.");
           })
           .catch((err) => {
             console.error("Error al intentar acceder a cualquier cámara:", err);
           });
       });
   }
-
+  
   loadRandomCard() {
     const randomIndex = Math.floor(Math.random() * this.cards.length);
     this.cardImage = `assets/images/${this.cards[randomIndex]}`;
